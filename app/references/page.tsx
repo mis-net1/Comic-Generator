@@ -1,0 +1,40 @@
+import { Shell } from '@/components/Shell';
+import { references } from '@/lib/seed-data';
+
+const types = ['character reference', 'style reference', 'pose reference', 'background reference', 'previous panel reference'];
+
+export default function References() {
+  return (
+    <Shell>
+      <div className="mb-6 flex items-center justify-between">
+        <div>
+          <p className="text-sm font-bold text-amber-400">Image Reference Upload</p>
+          <h2 className="text-3xl font-black">References</h2>
+        </div>
+        <button className="btn">Upload references</button>
+      </div>
+      <div className="card mb-6">
+        <h3 className="text-xl font-bold">Upload multiple continuity references</h3>
+        <div className="mt-4 grid gap-4 md:grid-cols-2">
+          <input type="file" multiple accept="image/*" />
+          <select>{types.map((type) => <option key={type}>{type}</option>)}</select>
+        </div>
+        <p className="mt-3 text-sm text-slate-400">
+          Untuk MVP, gunakan halaman Demo agar upload referensi tersimpan di localStorage browser.
+        </p>
+      </div>
+      <div className="grid gap-4 xl:grid-cols-2">
+        {references.map((item) => (
+          <article className="card" key={item.id}>
+            <h3 className="text-xl font-bold">{item.name}</h3>
+            <p className="mt-2 text-sm capitalize text-slate-300">{item.type}</p>
+            <div className="mt-4 flex gap-2">
+              <button className="btn-secondary">Use in prompt</button>
+              <button className="btn-secondary">Delete</button>
+            </div>
+          </article>
+        ))}
+      </div>
+    </Shell>
+  );
+}
